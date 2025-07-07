@@ -5,6 +5,7 @@ from torchvision.transforms.functional import to_tensor, to_pil_image
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# Load AnimeGANv2 model
 model = torch.hub.load(
     "bryandlee/animegan2-pytorch:main",
     "generator",
@@ -19,7 +20,8 @@ def face2anime(image):
     out = (out * 0.5 + 0.5).clamp(0, 1)
     return to_pil_image(out)
 
-iface = gr.Interface(
+# Gradio interface
+app = gr.Interface(
     fn=face2anime,
     inputs=gr.Image(type="pil", label="Upload Your Photo"),
     outputs=gr.Image(type="pil", label="Anime Output"),
@@ -27,4 +29,5 @@ iface = gr.Interface(
     theme="dark"
 )
 
-iface.launch()
+# 🚨 This must be set for Vercel
+app.launch(server_name="0.0.0.0", server_port=7860)
