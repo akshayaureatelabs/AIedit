@@ -29,5 +29,5 @@ app = gr.Interface(
     theme="dark"
 )
 
-# 🚨 This must be set for Vercel
+# 🚨 Required for Vercel hosting
 app.launch(server_name="0.0.0.0", server_port=7860)
